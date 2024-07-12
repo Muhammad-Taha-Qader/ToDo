@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+</head>
+<body>
+    <div class="todoCard">
+        <div class="todoItem">
+            <!-- ctrl + space at any field will pop up all possible valid values that can be used ie:  type="" Ctrl+Space b/w "" will pop valid op -->
+            <input type="checkbox" id="i1">
+            <label for="i1">your 1st task</label>
+            <!-- for="someID" not valid in btn , The data-for attribute is used on the <button> element to specify the associated checkbox ID.  elementRefer.getAttribute('data-for') to extract that id in js-->
+            <button type="button" data-for="i1" onclick="removeCurrentTodoItem(this)">del</button>
+        </div>
+        <button type="button" onclick="addNewTodoItem()" id="addNewItemBtn">+</button>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
