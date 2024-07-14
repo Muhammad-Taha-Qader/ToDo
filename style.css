@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+    @apply bg-gradient-to-r from-cyan-500 to-blue-500;
+}
+
+.delBtn{
+    @apply  rounded-lg px-2 text-zinc-50 ml-3;
+}
+
+.todoCard input{
+    @apply accent-indigo-500 mr-3;
+}
+
+.todoItem{
+    @apply my-2 border-dotted text-zinc-50;
+}

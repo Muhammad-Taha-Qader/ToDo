@@ -18,7 +18,8 @@ function addNewTodoItem(){
 
     let newIteamdel=document.createElement('button');
     newIteamdel.setAttribute('onclick','removeCurrentTodoItem(this)');
-    newIteamdel.innerText="del";
+    newIteamdel.innerHTML="<i class='fas fa-trash'></i>";
+    newIteamdel.className="delBtn";
 
     //Putting chcek box and labes inside the div that we created
     newTodoItem.appendChild(newItemCheckbox);
@@ -69,6 +70,7 @@ function handleCheckboxChange(myThis){
         document.getElementsByClassName("todoItemUnchecked")[0].appendChild(currentTodoIteam); 
     }
 }
+
 
 //-----> For repostioning when checked and uncked:
 /////// way 1:

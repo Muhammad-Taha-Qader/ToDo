@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo</title>
+    <link href="./des/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
-    <div class="todoCard">
-        <div class="todoItemUnchecked" style="background-color: aquamarine;">
+    <div class="todoCard flex flex-col items-center mt-6">
+        <div class="todoItemUnchecked bg-slate-500 min-w-72 rounded-lg flex flex-col items-center">
             <div class="todoItem">
                 <!-- ctrl + space at any field will pop up all possible valid values that can be used ie:  type="" Ctrl+Space b/w "" will pop valid op -->
                 <input type="checkbox" id="i1" onchange="handleCheckboxChange(this)">
                 <label for="i1">your 1st task</label>
+                <!-- <input type="text" class="bg-transparent" placeholder="Enter ur todo..."> -->
                 <!-- for="someID" not valid in btn , The data-for attribute is used on the <button> element to specify the associated checkbox ID.  elementRefer.getAttribute('data-for') to extract that id in js-->
-                <button type="button" data-for="i1" onclick="removeCurrentTodoItem(this)">del</button>
+                <button type="button" class="delBtn" data-for="i1" onclick="removeCurrentTodoItem(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         </div>
-        <div class="todoItemChecked" style="background-color:cadetblue">
+        <div class="todoItemChecked bg-green-400 min-w-72 line-through rounded-lg mt-4 flex flex-col items-center" >
             <p>test</p>
         </div>
-        <button type="button" onclick="addNewTodoItem()" id="addNewItemBtn">+</button>
+        <button type="button" onclick="addNewTodoItem()" id="addNewItemBtn"
+        class="bg-teal-300 rounded-lg mt-2 px-3">+</button>
     </div>
     <script src="./index.js"></script>
 </body>
