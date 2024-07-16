@@ -1,21 +1,54 @@
 let itemsAvliableSoFar=1;
-function addNewTodoItem(){
+
+// Save to local storage
+function saveTodos() {
+    const todoItems = [];
+    document.querySelectorAll('.todoItem').forEach((oneItem) => {
+        const itemText = oneItem.querySelector('textarea');
+        const checkbox = oneItem.querySelector('input[type="checkbox"]');
+        if(itemText.value!='') // if don't use this, it will also store the 1st blank todoiteam that is showin to 1st user. 
+            todoItems.push({
+                text: itemText.value,
+                checkbox: checkbox.checked,
+                id: checkbox.id
+            });
+    });
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+}
+
+// Load from local storage
+function loadTodos() {
+    const todoItems = JSON.parse(localStorage.getItem('todoItems')) || [];
+    todoItems.forEach(todo => {
+        const newTodoItem=createNewTodoItem(todo.id, todo.checkbox, todo.text);
+        const newItemParent= todo.checkbox? document.querySelector('.todoItemChecked') : document.querySelector('.todoItemUnchecked') ;
+        newItemParent.appendChild(newTodoItem);
+        // // const newTodoItem = createTodoItem(todo.id, todo.checked, todo.text);
+        // const parent = todo.checked ? document.querySelector('.todoItemChecked') : document.querySelector('.todoItemUnchecked');
+        // parent.appendChild(newTodoItem);
+        // itemsAvliableSoFar = Math.max(itemsAvliableSoFar, parseInt(todo.id.slice(1)));
+    });
+}
+
+function createNewTodoItem(id, checked, text){
     //Creat new TodoItem div
     let newTodoItem = document.createElement('div');
     newTodoItem.className ="todoItem";
 
     //Creat new div's iteam chcek box
     let newItemCheckbox = document.createElement('input');
-    newItemCheckbox.id=`i${++itemsAvliableSoFar}`;
+    newItemCheckbox.id=id;
     // newCheckbox.setAttribute('type', 'checkbox');  Or can use following
     newItemCheckbox.type = 'checkbox';
+    newItemCheckbox.checked=checked;
     newItemCheckbox.setAttribute('onchange' , 'handleCheckboxChange(this)');
 
     //Creat new textarea for iteam
     let newItemTextarea = document.createElement('textarea');
-    newItemTextarea.setAttribute('data-for', `${newItemCheckbox.id}`);
+    newItemTextarea.setAttribute('data-for', id);
     // newItemLable.textContent=`your ${itemsAvliableSoFar} task`;
     newItemTextarea.setAttribute('placeholder','Enter description...');
+    newItemTextarea.value = text;
     newItemTextarea.setAttribute('oninput','autoResize(this)');
 
     //Creat new del btn for iteam
@@ -29,10 +62,16 @@ function addNewTodoItem(){
     newTodoItem.appendChild(newItemTextarea);
     newTodoItem.appendChild(newIteamdel);
 
+    return newTodoItem;
+}
+
+function addNewTodoItem(){
+    const id = `i${++itemsAvliableSoFar}`;
+    const newTodoItem = createNewTodoItem(id, false, '');
     //putting the div(new to do item) in our main todoIteams list/card
     // document.getElementsByClassName("todoCard")[0].appendChild(newTodoItem);
-   // Instead this use following document.getElementsByClassName("todoItemUnchecked")[0].appendChild(newTodoItem);
-    document.querySelector("todoItemUnchecked").appendChild(newTodoItem);
+    //document.getElementsByClassName("todoItemUnchecked")[0].appendChild(newTodoItem);
+    document.querySelector('.todoItemUnchecked').appendChild(newTodoItem);
 
     //NO need now as previously new items were in todoCard so we have to reposition the add butoon but now every newiteam in in UNCKED div
     // //But add button should go down the newly created iteam so:
@@ -41,8 +80,8 @@ function addNewTodoItem(){
     // //Insert the new item before button
     // let btn=document.getElementById("addNewItemBtn");
     // parent.insertBefore(newTodoItem,btn);
+    saveTodos();
 }
-
 
 function removeCurrentTodoItem(myThis)
 {
@@ -51,16 +90,11 @@ function removeCurrentTodoItem(myThis)
     let currentTodoIteam=myThis.parentNode;
     let parent=currentTodoIteam.parentNode;
     parent.removeChild(currentTodoIteam);
+    saveTodos();
 }
 
 function handleCheckboxChange(myThis){
-    // alert("Got togal");
-    console.log(myThis);
-    console.log(myThis.checked);
     let currentTodoIteam=myThis.parentNode;
-    console.log("---------- printing Curennt Item: ")
-    console.log(currentTodoIteam);
-    console.log("------------------------------- ")
 
     let parent=currentTodoIteam.parentNode; //parent==Check/Uncheck div
     if (myThis.checked) {
@@ -73,6 +107,7 @@ function handleCheckboxChange(myThis){
         parent.removeChild(currentTodoIteam);
         document.getElementsByClassName("todoItemUnchecked")[0].appendChild(currentTodoIteam); 
     }
+    saveTodos();
 }
 
 
@@ -109,9 +144,15 @@ function handleCheckboxChange(checkbox) {
 function autoResize(textarea) {
     textarea.style.height = 'auto';
     textarea.style.height = (textarea.scrollHeight) + 'px';
+    saveTodos();
 }
 
-
+function resetAll(){
+ localStorage.clear();
+ loadTodos();
+ // Refresh the page
+location.reload();
+}
 function togalTheme(){
     let todoItemUnchecked=document.getElementsByClassName('todoItemUnchecked')[0];
     let todoItemChecked=document.getElementsByClassName('todoItemChecked')[0];
@@ -131,6 +172,8 @@ function togalTheme(){
     classesToRemove.forEach(className => myHtml.classList.remove(className));
     console.log(myHtml.classList);
     myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
-
-
 }
+
+
+// Load todos when the page loads
+window.onload = loadTodos;
