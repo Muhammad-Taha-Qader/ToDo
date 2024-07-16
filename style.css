@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 html{
-    @apply bg-gradient-to-r from-cyan-500 to-blue-500;
+    @apply bg-gradient-to-r from-purple-950 to-fuchsia-900;
+    /* scrollbar-color: rgba(255, 255, 255, 0.297) rgba(255, 166, 0, 0);
+    scrollbar-width: 1px !important;
+    scrollbar-arrow-color: rgb(247, 72, 8) !important; */
 }
 
 .delBtn{
@@ -11,9 +14,49 @@ html{
 }
 
 .todoCard input{
-    @apply accent-indigo-500 mr-3;
+    @apply accent-indigo-500 mr-3 mt-2 align-top;
 }
 
 .todoItem{
     @apply my-2 border-dotted text-zinc-50;
+}
+
+.todoCard textarea{
+    white-space: pre-wrap; /* This ensures the text wraps to a new line within the textarea */
+    overflow-wrap: break-word; /* This ensures long words break and wrap to the next line */
+    resize: none; /* This prevents the user from resizing the textarea */
+    min-height: 40px; /* Adjust this value to set a minimum height */
+    max-height: 200px; /* Set the maximum height for the textarea */
+    overflow-y: auto; /* Ensure vertical scrollbar appears when needed */
+
+    /* @apply bg-transparent focus:outline-green-400 focus:border-transparent; */
+    /* @apply bg-transparent focus:outline-2 focus:outline-blue-500/90; */
+    @apply bg-transparent;
+}
+.todoCard textarea:focus{
+    @apply outline outline-offset-4 outline-green-400 rounded-lg;
+}
+/* Customize the scrollbar */
+.todoCard textarea::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.todoCard textarea::-webkit-scrollbar-thumb {
+    background-color: #ffffff8c; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; /* Optional: round the corners of the scrollbar thumb */
+}
+
+.todoCard textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #ffffffe0; /* Set the color of the scrollbar thumb on hover */
+}
+
+
+
+#myNav{
+    box-shadow: inset 4em 3em 40px -30px rgb(121, 24, 138);
+    @apply flex justify-center bg-slate-800 border-2 border-slate-50 mx-5 rounded-2xl py-3 text-gray-100 font-mono font-bold;
+}
+
+.my-line-through {
+    text-decoration: line-through;
 }

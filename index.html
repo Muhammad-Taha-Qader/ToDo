@@ -9,21 +9,29 @@
 
 </head>
 <body>
+    <nav id="myNav">
+        <p >To do App</p> 
+        <button type="button" onclick="togalTheme()" class="bg-slate-600 px-2 rounded-lg ml-4">🔮</button>
+    </nav>
     <div class="todoCard flex flex-col items-center mt-6">
         <div class="todoItemUnchecked bg-slate-500 min-w-72 rounded-lg flex flex-col items-center">
             <div class="todoItem">
                 <!-- ctrl + space at any field will pop up all possible valid values that can be used ie:  type="" Ctrl+Space b/w "" will pop valid op -->
                 <input type="checkbox" id="i1" onchange="handleCheckboxChange(this)">
-                <label for="i1">your 1st task</label>
-                <!-- <input type="text" class="bg-transparent" placeholder="Enter ur todo..."> -->
+                
+                <!-- <label for="i1">your 1st task</label> -->
+                <!-- <input type="text" data-for="i1" class="bg-transparent text-wrap" placeholder="Enter ur todo discription..."> -->
+                <textarea data-for="i1" placeholder="Enter description..." oninput="autoResize(this)"></textarea>
+                <!-- <textarea data-for="i1" class="bg-transparent myText-wrap" placeholder="Enter your todo description..." rows="1" cols="50"></textarea> -->
+               
                 <!-- for="someID" not valid in btn , The data-for attribute is used on the <button> element to specify the associated checkbox ID.  elementRefer.getAttribute('data-for') to extract that id in js-->
                 <button type="button" class="delBtn" data-for="i1" onclick="removeCurrentTodoItem(this)">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
-        <div class="todoItemChecked bg-green-400 min-w-72 line-through rounded-lg mt-4 flex flex-col items-center" >
-            <p>test</p>
+        <div class="todoItemChecked bg-green-400 min-w-72 my-line-through rounded-lg mt-4 flex flex-col items-center" >
+            <!-- <p>test</p> -->
         </div>
         <button type="button" onclick="addNewTodoItem()" id="addNewItemBtn"
         class="bg-teal-300 rounded-lg mt-2 px-3">+</button>
