@@ -1,6 +1,14 @@
-import config from "eslint-config-standard";
+import globals from "globals";
+import pluginJs from "@eslint/js";
 
 
 export default [
-  ...[].concat(config),
+  {files: ["**/*.js"], languageOptions: {sourceType: "commonjs"},
+  rules: {
+    'quotes': ['error', 'single'], // Enforce single quotes
+    'semi': ['error', 'always'] // Require semicolons
+  }
+  },
+  {languageOptions: { globals: globals.browser }},
+  pluginJs.configs.recommended,
 ];

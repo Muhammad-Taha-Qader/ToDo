@@ -1,4 +1,10 @@
 let itemsAvliableSoFar=1;
+const Theme = {
+    LIGHT: 1,
+    DARK: 2,
+    DAKR_DEEP: 3
+};
+let currentTheme= Theme.LIGHT;
 
 // Save to local storage
 function saveTodos() {
@@ -23,9 +29,6 @@ function loadTodos() {
         const newTodoItem=createNewTodoItem(todo.id, todo.checkbox, todo.text);
         const newItemParent= todo.checkbox? document.querySelector('.todoItemChecked') : document.querySelector('.todoItemUnchecked') ;
         newItemParent.appendChild(newTodoItem);
-        // // const newTodoItem = createTodoItem(todo.id, todo.checked, todo.text);
-        // const parent = todo.checked ? document.querySelector('.todoItemChecked') : document.querySelector('.todoItemUnchecked');
-        // parent.appendChild(newTodoItem);
         // itemsAvliableSoFar = Math.max(itemsAvliableSoFar, parseInt(todo.id.slice(1)));
     });
 }
@@ -33,7 +36,7 @@ function loadTodos() {
 function createNewTodoItem(id, checked, text){
     //Creat new TodoItem div
     let newTodoItem = document.createElement('div');
-    newTodoItem.className ="todoItem";
+    newTodoItem.className ='todoItem';
 
     //Creat new div's iteam chcek box
     let newItemCheckbox = document.createElement('input');
@@ -54,8 +57,8 @@ function createNewTodoItem(id, checked, text){
     //Creat new del btn for iteam
     let newIteamdel=document.createElement('button');
     newIteamdel.setAttribute('onclick','removeCurrentTodoItem(this)');
-    newIteamdel.innerHTML="<i class='fas fa-trash'></i>";
-    newIteamdel.className="delBtn";
+    newIteamdel.innerHTML='<i class="fas fa-trash"></i>';
+    newIteamdel.className='delBtn';
 
     //Putting chcek box and labes inside the div that we created
     newTodoItem.appendChild(newItemCheckbox);
@@ -65,6 +68,7 @@ function createNewTodoItem(id, checked, text){
     return newTodoItem;
 }
 
+// eslint-disable-next-line no-unused-vars
 function addNewTodoItem(){
     const id = `i${++itemsAvliableSoFar}`;
     const newTodoItem = createNewTodoItem(id, false, '');
@@ -83,16 +87,18 @@ function addNewTodoItem(){
     saveTodos();
 }
 
+// eslint-disable-next-line no-unused-vars
 function removeCurrentTodoItem(myThis)
 {
     console.log(myThis);
     console.log(myThis.getAttribute('data-for'));
-    let currentTodoIteam=myThis.parentNode;
-    let parent=currentTodoIteam.parentNode;
+    const currentTodoIteam=myThis.parentNode;
+    const parent=currentTodoIteam.parentNode;
     parent.removeChild(currentTodoIteam);
     saveTodos();
 }
 
+// eslint-disable-next-line no-unused-vars
 function handleCheckboxChange(myThis){
     let currentTodoIteam=myThis.parentNode;
 
@@ -101,79 +107,100 @@ function handleCheckboxChange(myThis){
         parent.removeChild(currentTodoIteam);
         console.log(currentTodoIteam);
         //document.getElementsByClassName("todoItemChecked")[0].appendChild(currentTodoIteam); // Will apend at bottom but we don't want that
-        var todoItemCheckedDiv = document.getElementsByClassName("todoItemChecked")[0];
+        var todoItemCheckedDiv = document.getElementsByClassName('todoItemChecked')[0];
         todoItemCheckedDiv.insertBefore(currentTodoIteam, todoItemCheckedDiv.firstChild);        
     }else{
         parent.removeChild(currentTodoIteam);
-        document.getElementsByClassName("todoItemUnchecked")[0].appendChild(currentTodoIteam); 
+        document.getElementsByClassName('todoItemUnchecked')[0].appendChild(currentTodoIteam); 
     }
     saveTodos();
 }
 
-
-//-----> For repostioning when checked and uncked:
-/////// way 1:
-//html:  <input type="checkbox" id="i1">
-//js:
-// const checkbox = document.getElementById(id);
-// if (checkbox) {
-//     if (checkbox.checked) {
-//         console.log("Checkbox is checked");
-//         // Do something if the checkbox is checked, e.g., mark the task as completed
-//     } else {
-//         console.log("Checkbox is not checked");
-//         // Do something if the checkbox is not checked, e.g., prompt the user to check it before deleting
-//     }
-
-////////way2:
-{/* <input type="checkbox" id="i1" onchange="handleCheckboxChange(this)"></input>
-
-function handleCheckboxChange(checkbox) {
-    if (checkbox.checked) {
-        console.log("Checkbox is checked");
-        // Do something when the checkbox is checked
-    } else {
-        console.log("Checkbox is not checked");
-        // Do something when the checkbox is not checked
-    }
-} */}
-
-
-
-
+// eslint-disable-next-line no-unused-vars
 function autoResize(textarea) {
     textarea.style.height = 'auto';
     textarea.style.height = (textarea.scrollHeight) + 'px';
     saveTodos();
 }
 
+// eslint-disable-next-line no-unused-vars
 function resetAll(){
  localStorage.clear();
  loadTodos();
  // Refresh the page
 location.reload();
 }
+
+// function togalTheme(){
+//     let todoItemUnchecked=document.getElementsByClassName('todoItemUnchecked')[0];
+//     let todoItemChecked=document.getElementsByClassName('todoItemChecked')[0];
+//     todoItemUnchecked.classList.remove('bg-slate-500');
+//     todoItemUnchecked.classList.add('bg-purple-900');
+
+//     todoItemChecked.classList.remove('bg-green-400');
+//     todoItemChecked.classList.add('bg-fuchsia-900');
+
+//     // let myHtml= document.getElementsByTagName('html')[0];
+//     // myHtml.classList.remove('bg-gradient-to-r from-purple-950 to-fuchsia-900');
+//     // console.log(myHtml.classList);
+//     // myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+
+//     let myHtml = document.getElementsByTagName('html')[0];
+//     let classesToRemove = ['bg-gradient-to-r', 'from-purple-950', 'to-fuchsia-900'];
+//     classesToRemove.forEach(className => myHtml.classList.remove(className));
+//     console.log(myHtml.classList);
+//     myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+// }
+// eslint-disable-next-line no-unused-vars
 function togalTheme(){
-    let todoItemUnchecked=document.getElementsByClassName('todoItemUnchecked')[0];
-    let todoItemChecked=document.getElementsByClassName('todoItemChecked')[0];
-    todoItemUnchecked.classList.remove('bg-slate-500');
-    todoItemUnchecked.classList.add('bg-purple-900');
+    const todoItemUnchecked=document.getElementsByClassName('todoItemUnchecked')[0];
+    const todoItemChecked=document.getElementsByClassName('todoItemChecked')[0];
+    const myHtml = document.getElementsByTagName('html')[0];
+    let themeBtn= document.querySelector('#myNav button');
 
-    todoItemChecked.classList.remove('bg-green-400');
-    todoItemChecked.classList.add('bg-fuchsia-900');
+    if(currentTheme===Theme.LIGHT){
+        // todoItemUnchecked.classList.remove('bg-slate-500');
+        // todoItemUnchecked.classList.add('bg-purple-900');
+    
+        // todoItemChecked.classList.remove('bg-green-400');
+        // todoItemChecked.classList.add('bg-fuchsia-900');
 
-    // let myHtml= document.getElementsByTagName('html')[0];
-    // myHtml.classList.remove('bg-gradient-to-r from-purple-950 to-fuchsia-900');
-    // console.log(myHtml.classList);
-    // myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+        // let myHtml= document.getElementsByTagName('html')[0];
+        // myHtml.classList.remove('bg-gradient-to-r from-purple-950 to-fuchsia-900');
+        // console.log(myHtml.classList);
+        // myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+        const classesToRemove = ['bg-gradient-to-r', 'from-purple-950', 'to-fuchsia-900'];
+        classesToRemove.forEach(className => myHtml.classList.remove(className));
+        console.log(myHtml.classList);
+        myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+        // eslint-disable-next-line no-unused-vars
+        themeBtn.innerHTML='<i class="fa-regular fa-moon"></i>';
+        currentTheme=Theme.DARK;
+    }else if(currentTheme===Theme.DARK){
+        todoItemUnchecked.classList.remove('bg-custom-transparent');
+        todoItemUnchecked.classList.add('bg-purple-900');
+    
+        todoItemChecked.classList.remove('bg-custom-green');
+        todoItemChecked.classList.add('bg-fuchsia-900');
+        themeBtn.innerHTML='<i class="fa-solid fa-star"></i>';
+        currentTheme=Theme.DAKR_DEEP;
+    }else if(currentTheme===Theme.DAKR_DEEP){
+        todoItemUnchecked.classList.add('bg-custom-transparent');
+        todoItemUnchecked.classList.remove('bg-purple-900');
+    
+        todoItemChecked.classList.add('bg-custom-green');
+        todoItemChecked.classList.remove('bg-fuchsia-900');
 
-    let myHtml = document.getElementsByTagName('html')[0];
-    let classesToRemove = ['bg-gradient-to-r', 'from-purple-950', 'to-fuchsia-900'];
-    classesToRemove.forEach(className => myHtml.classList.remove(className));
-    console.log(myHtml.classList);
-    myHtml.classList.add('bg-gradient-to-r', 'from-slate-800', 'to-slate-900');
+        const classesToRemove = ['bg-gradient-to-r', 'from-slate-800', 'to-slate-900'];
+        classesToRemove.forEach(className => myHtml.classList.remove(className));
+        console.log(myHtml.classList);
+        myHtml.classList.add('bg-gradient-to-r', 'from-purple-950', 'to-fuchsia-900');
+        // eslint-disable-next-line no-unused-vars
+        themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+        currentTheme=Theme.LIGHT;
+    }
 }
-
 
 // Load todos when the page loads
 window.onload = loadTodos;
+
