@@ -22,7 +22,7 @@ Here is a mini practice project of a To Do App.
         - npm install eslint -g OR npm install eslint
         - eslint --init OR npx eslint --init
         - You might want to include the following in your eslint.config.mjs:
-        ```export default [
+        ``` export default [
             {
                 files: ["**/*.js"],
                 languageOptions: {sourceType: "commonjs"},
@@ -33,6 +33,6 @@ Here is a mini practice project of a To Do App.
             },
             {languageOptions: { globals: globals.browser }},
             pluginJs.configs.recommended,
-        ];```
+        ]; ```
 - Tailwind
     - Follow https://tailwindcss.com/docs/installation for installation
