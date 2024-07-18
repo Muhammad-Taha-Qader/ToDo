@@ -70,21 +70,26 @@ function createNewTodoItem(id, checked, text){
 
 // eslint-disable-next-line no-unused-vars
 function addNewTodoItem(){
-    const id = `i${++itemsAvliableSoFar}`;
-    const newTodoItem = createNewTodoItem(id, false, '');
-    //putting the div(new to do item) in our main todoIteams list/card
-    // document.getElementsByClassName("todoCard")[0].appendChild(newTodoItem);
-    //document.getElementsByClassName("todoItemUnchecked")[0].appendChild(newTodoItem);
-    document.querySelector('.todoItemUnchecked').appendChild(newTodoItem);
+    const isFirstCardEmpty=document.querySelector('.todoItem');
+    if(isFirstCardEmpty.querySelector('textarea').value==''){
+        alert('Hi! You already has a new ToDo iteam on top.');
+    }else{
+        const id = `i${++itemsAvliableSoFar}`;
+        const newTodoItem = createNewTodoItem(id, false, '');
+        //putting the div(new to do item) in our main todoIteams list/card
+        // document.getElementsByClassName("todoCard")[0].appendChild(newTodoItem);
+        //document.getElementsByClassName("todoItemUnchecked")[0].appendChild(newTodoItem);
+        document.querySelector('.todoItemUnchecked').appendChild(newTodoItem);
 
-    //NO need now as previously new items were in todoCard so we have to reposition the add butoon but now every newiteam in in UNCKED div
-    // //But add button should go down the newly created iteam so:
-    // // Get the parent element
-    // let parent = newTodoItem.parentNode;  //Or let parent=document.getElementsByClassName("todoItemUnchecked")[0];
-    // //Insert the new item before button
-    // let btn=document.getElementById("addNewItemBtn");
-    // parent.insertBefore(newTodoItem,btn);
-    saveTodos();
+        //NO need now as previously new items were in todoCard so we have to reposition the add butoon but now every newiteam in in UNCKED div
+        // //But add button should go down the newly created iteam so:
+        // // Get the parent element
+        // let parent = newTodoItem.parentNode;  //Or let parent=document.getElementsByClassName("todoItemUnchecked")[0];
+        // //Insert the new item before button
+        // let btn=document.getElementById("addNewItemBtn");
+        // parent.insertBefore(newTodoItem,btn);
+        saveTodos();
+        }
 }
 
 // eslint-disable-next-line no-unused-vars
