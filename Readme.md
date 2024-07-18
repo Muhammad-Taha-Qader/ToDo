@@ -40,4 +40,4 @@ Here is a mini practice project of a To Do App.
 
 
 ### Demo
-![Demo of the project](./img/show.gif)
+![Demo of the project](img/show.gif)
