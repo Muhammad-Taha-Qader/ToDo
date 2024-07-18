@@ -33,6 +33,11 @@ Here is a mini practice project of a To Do App.
             },
             {languageOptions: { globals: globals.browser }},
             pluginJs.configs.recommended,
-        ]; ```
+        ]; 
+        ```
 - Tailwind
     - Follow https://tailwindcss.com/docs/installation for installation
+
+
+### Demo
+![Demo of the project](img/demo.gif)
